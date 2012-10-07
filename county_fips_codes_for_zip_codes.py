@@ -46,7 +46,6 @@ for line in zip_data:
     zip_fips[zip_code] = fips_cd_for_zip_code
     output_file.write("%s\t%s\t%s\t%s\n" % 
       (zip_code, fips_cd_for_zip_code, county_name, state_cd))
-    #print zip_code, zip_fips
   except KeyError:
     no_match.append((state_cd, county_name))
 output_file.close()
