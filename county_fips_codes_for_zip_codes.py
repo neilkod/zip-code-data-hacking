@@ -37,9 +37,7 @@ with open(zip_data, 'rb') as f:
     for data in reader:
       zip_code = data[0]
       state_cd = data[5].upper()
-      print zip_code, state_cd
-      if len(state_cd) != 2:
-        continue
+
       county_name = data[6].replace('"','').upper().replace('.','')
  
       try:
@@ -49,7 +47,9 @@ with open(zip_data, 'rb') as f:
           (zip_code, fips_cd_for_zip_code, county_name, state_cd))
       except KeyError:
         no_match.append((state_cd, county_name))
+
 output_file.close()
+
 print "found county matches for %d zip codes" % len(zip_fips.items())
 print "-------"
 print "couldn't find a match for the following %d items." %len(set(no_match))
