@@ -15,6 +15,12 @@ output_file = open('output/zip_code_to_fips_county_code.txt','w')
 for line in fips_data:
   data = line.strip()
   fips_cd = data[0:5]
+
+  # making sure that we're dealing with zip code records
+  # and not header records.
+  # also filter out fips codes that end in 000 because those are records
+  # for a state as a whole i.e. 10000 is alabama.
+  
   if fips_regex.match(fips_cd) and fips_cd[2:5] != '000':
     county_name, state_cd = data[6:].split(',')
     state_cd = state_cd.replace(' ','')
