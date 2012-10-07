@@ -17,3 +17,7 @@ this will be saved to the output directory.
 I did this because geo data is difficult to find and the scummy data-for-sale sites SEOd their way ahead of any useful information. 
 
 I haven't put a lot of time into this and I can certainly use some help and polishing. In the meantime, the output data is pretty damn good for a first effort.
+
+I spot-checked a bunch of records against some google searches and they seem ok. Please let me know of any data issues.
+
+The program will output a list of items that couldn't be matched. Included are some empty strings and a few other oddities. I'll go through these as I get some time. This is something I could REALLY use some help with so submit those pull requests. 
