@@ -3,13 +3,13 @@
 # http://quickfacts.census.gov/qfd/download/FIPS_CountyName.txt
 # http://www.unitedstateszipcodes.org/zip_code_database.csv
 
-import sys, re
+import sys, re, csv
 counties = {}
 no_match = []
 zip_fips = {}
 fips_regex = re.compile('^[0-9]{5}')
 fips_data = open('data/FIPS_CountyName.txt').readlines()
-zip_data = open('data/zip_code_database.csv').readlines()
+zip_data = 'data/zip_code_database.csv'
 output_file = open('output/zip_code_to_fips_county_code.txt','w')
 
 for line in fips_data:
@@ -32,22 +32,23 @@ for line in fips_data:
 # - convert it to upper case
 # - remove periods (i.e. ST.)
 # - remove the surrounding double-quotes
-
-for line in zip_data:
-  data = line.strip().split(',')
-  zip_code = data[0].replace('"','')
-  state_cd = data[5].replace('"','').upper()
-  if len(state_cd) != 2:
-    continue
-  county_name = data[6].replace('"','').upper().replace('.','')
+with open(zip_data, 'rb') as f:
+    reader = csv.reader(f)
+    for data in reader:
+      zip_code = data[0]
+      state_cd = data[5].upper()
+      print zip_code, state_cd
+      if len(state_cd) != 2:
+        continue
+      county_name = data[6].replace('"','').upper().replace('.','')
  
-  try:
-    fips_cd_for_zip_code = counties[(state_cd, county_name)]
-    zip_fips[zip_code] = fips_cd_for_zip_code
-    output_file.write("%s\t%s\t%s\t%s\n" % 
-      (zip_code, fips_cd_for_zip_code, county_name, state_cd))
-  except KeyError:
-    no_match.append((state_cd, county_name))
+      try:
+        fips_cd_for_zip_code = counties[(state_cd, county_name)]
+        zip_fips[zip_code] = fips_cd_for_zip_code
+        output_file.write("%s\t%s\t%s\t%s\n" % 
+          (zip_code, fips_cd_for_zip_code, county_name, state_cd))
+      except KeyError:
+        no_match.append((state_cd, county_name))
 output_file.close()
 print "found county matches for %d zip codes" % len(zip_fips.items())
 print "-------"
