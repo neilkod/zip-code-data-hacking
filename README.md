@@ -3,7 +3,7 @@ zip-code-data-hacking
 
 sourcing publicly available files, generate useful zip code-county data. 
 
-My goal is to be able to map zip codes to county FIPS codes, without paying. 
+My goal is to be able to map zip codes to county FIPS codes, without paying. So far, I'm able to produce county fips codes for 41456 counties out of a list of 42523 zip codes.
 
 I was able to find a zip code database from unitedstateszipcodes.org, each zip code had a county name but not a county FIPS code. I was able to find County FIPS codes on the census.gov site through some google hacking.
 
